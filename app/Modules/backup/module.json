@@ -1,0 +1,42 @@
+{
+    "name": "Backup",
+    "slug": "backup",
+    "description": "A Backup module",
+    "version": "1.0",
+    "author": "CoderVex",
+    "status": "1",
+    "menu_access": "1",
+    "menu_icon": "fa fa-database",
+    "sidebar_menu": "1",
+    "super_admin_dashboard": "0",
+    "admin_dashboard": "0",
+    "teacher_dashboard": "0",
+    "student_dashboard": "0",
+    "parent_dashboard": "0",
+    "params": 
+        {
+            "output_file_name": "backup",
+            "date_format": "Y-m-d_H-i-s"
+        }
+    ,
+    "fields": [
+        {
+            "name": "output_file_name",
+            "label": "Output file name",
+            "type": "text",
+            "required": true,
+            "default": "backup",
+            "placeholder": "backup",
+            "note": ""
+        },
+        {
+            "name": "date_format",
+            "label": "Date Format",
+            "type": "text",
+            "required": true,
+            "default": "Y-m-d_H-i-s",
+            "placeholder": "Y-m-d_H-i-s",
+            "note": ""
+        }
+    ]
+}

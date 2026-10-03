@@ -1,0 +1,18 @@
+{
+    "name": "Admission",
+    "slug": "admission",
+    "description": "Multi-tenant admission applications, auditable lottery draws, and student enrollment",
+    "version": "1.0.0",
+    "author": "CoderVex",
+    "status": "1",
+    "menu_access": "1",
+    "menu_icon": "bi bi-person-plus",
+    "sidebar_menu": "1",
+    "super_admin_dashboard": "0",
+    "admin_dashboard": "0",
+    "teacher_dashboard": "0",
+    "student_dashboard": "0",
+    "parent_dashboard": "0",
+    "params": {},
+    "fields": []
+}

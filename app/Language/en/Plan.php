@@ -1,0 +1,61 @@
+<?php
+
+// override core en language system validation or define your own en language validation message
+return [
+    'page_title_list' => "Plan List",
+    'page_title_create'  => "Create Plan",
+    'page_title_edit' => 'Edit Plan',
+    'heading_list' => "Plan list",
+    'heading_form' => "Create Plan",
+    'back_to_list' => "Back to Plan List",
+    'name' => "Full Name",
+    'slug' => "Slug",
+    'monthly_price' => "Monthly Price",
+    'yearly_price' => "Yearly Price",
+    'lifetime_price' => "Lifetime Price",
+    'currency' => "Currency",
+    'description' => "Description",
+    'trial_days' => "Trial Days",
+    'student_limit' => "Student Limit",
+    'teachers_limit' => "Teachers Limit",
+    'branch_limit' => "Branch Limit",
+    'admin_limit' => "Admin Limit",
+    'sms_limit' => "SMS Limit",
+    'storage_limit_mb' => "Storage Limit (MB)",
+    'custom_domain' => "Custom Domain",
+    'mobile_app_access' => "Mobile App Access",
+    'api_access' => "API Access",
+    'is_popular' => "Is Popular",
+    'is_featured' => "Is Featured",
+    'monthly' => "Monthly",
+    'yearly' => "Yearly",
+    'lifetime' => "Lifetime",
+
+    'pricing' => "Plan Pricing",
+    'price_bdt' => "BDT (Taka)",
+    'price_usd' => "USD (Dollar)",
+
+    'th_monthly_price' => "Monthly Price",
+    'th_yearly_price' => "Yearly Price",
+    'th_lifetime_price' => "Lifetime Price",
+
+    'th_teachers_limit' => "Teachers Limit",
+    'th_branch_limit' => "Branch Limit",
+    'th_admin_limit' => "Admin Limit",
+    'th_sms_limit' => "SMS Limit",
+    'sort_order' => "Sort Order",
+
+    'active' => 'Active',
+    'btn_add_new' => 'Add New Plan',
+    'btn_save' => 'Submit',
+    'btn_reset' => 'Reset',
+    'sys_saved' => 'Plan data saved successfully.',
+
+    'th_name' => 'Name',
+    'th_price' => 'Price',
+    'th_billing_cycle' => 'Billing Cycle',
+    'th_currency' => 'Currency (BDT/USD)',
+    'th_trial_days' => 'Trial Days',
+    'th_student_limit' => 'Student Limit',
+    'th_id' => 'ID'
+];

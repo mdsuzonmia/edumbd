@@ -1,0 +1,27 @@
+<?php
+
+return array (
+  'page_title_list' => 'ফলাফল টেমপ্লেট',
+  'page_title_builder' => 'টেমপ্লেট নির্মাতা',
+  'heading_list' => 'টেমপ্লেট তালিকা',
+  'heading_builder' => 'টেমপ্লেট নির্মাতা',
+  'btn_new' => 'নতুন টেমপ্লেট',
+  'btn_save' => 'টেমপ্লেট সংরক্ষণ করুন',
+  'btn_delete' => 'টেমপ্লেট মুছুন',
+  'btn_builder' => 'ওপেন বিল্ডার',
+  'back_to' => 'টেমপ্লেট-এ ফিরে যান',
+  'sys_saved' => 'টেমপ্লেট সফলভাবে সংরক্ষিত হয়েছে৷',
+  'sys_deleted' => 'টেমপ্লেট সফলভাবে মুছে ফেলা হয়েছে।',
+  'template_name' => 'টেমপ্লেট নাম',
+  'template_content' => 'টেমপ্লেট বিষয়বস্তু',
+  'confirm_delete' => 'আপনি কি এই টেমপ্লেটটি মুছে ফেলার বিষয়ে নিশ্চিত?',
+  'template_type' => 'টেমপ্লেট টাইপ',
+  'select_template_type' => 'টেমপ্লেট টাইপ নির্বাচন করুন',
+  'template_style' => 'টেমপ্লেট শৈলী',
+  'template_style_help' => 'টেমপ্লেটের জন্য CSS শৈলী। {subject_table} প্লেসহোল্ডার ব্যবহার করুন যেখানে আপনি বিষয়ভিত্তিক মার্ক টেবিলটি দেখতে চান।',
+  'template_background' => 'টেমপ্লেট ব্যাকগ্রাউন্ড ইমেজ',
+  'class_teacher_signature' => 'শ্রেণি শিক্ষকের স্বাক্ষর চিত্র',
+  'principal_signature' => 'প্রধান স্বাক্ষর ইমেজ',
+  'orientation' => 'ওরিয়েন্টেশন',
+  'select_orientation' => 'ওরিয়েন্টেশন নির্বাচন করুন',
+);

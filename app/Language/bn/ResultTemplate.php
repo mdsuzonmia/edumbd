@@ -1,0 +1,37 @@
+<?php
+
+return array (
+  'heading_list' => 'ফলাফল টেমপ্লেট',
+  'heading_builder' => 'টেমপ্লেট নির্মাতা',
+  'th_template_name' => 'টেমপ্লেট নাম',
+  'th_default' => 'ডিফল্ট',
+  'th_multiple_exams' => 'একাধিক পরীক্ষা',
+  'th_aggregated' => 'একত্রিত',
+  'template_name' => 'টেমপ্লেট নাম',
+  'enter_template_name' => 'টেমপ্লেট নাম লিখুন',
+  'template_content' => 'এইচটিএমএল টেমপ্লেট',
+  'template_content_placeholder' => 'এখানে আপনার HTML টেমপ্লেট পেস্ট করুন বা লিখুন...
+
+টিপ: যেখানে আপনি বিষয়ভিত্তিক মার্ক টেবিলটি দেখতে চান সেখানে {subject_table} প্লেসহোল্ডার ব্যবহার করুন।',
+  'set_as_default' => 'ডিফল্ট টেমপ্লেট হিসাবে সেট করুন',
+  'support_multiple_exams' => 'একাধিক পরীক্ষা সমর্থন',
+  'support_multiple_exams_help' => 'একাধিক পরীক্ষা নির্বাচন করা হলে প্রতিটি পরীক্ষার জন্য পৃথক টেবিল দেখানোর জন্য এটি সক্ষম করুন',
+  'support_aggregated_result' => 'সমষ্টিগত ফলাফল সমর্থন',
+  'support_aggregated_result_help' => 'একাধিক পরীক্ষায় সম্মিলিত/সমষ্টিগত ফলাফল দেখাতে এটি সক্ষম করুন',
+  'select_school_for_template' => 'টেমপ্লেটের জন্য স্কুল নির্বাচন করুন (সমস্ত স্কুলের জন্য খালি ছেড়ে দিন)',
+  'no_templates' => 'কোন টেমপ্লেট পাওয়া যায়নি.',
+  'create_first_template' => 'আপনার প্রথম টেমপ্লেট তৈরি করুন',
+  'template_saved' => 'টেমপ্লেট সফলভাবে সংরক্ষিত হয়েছে৷',
+  'template_deleted' => 'টেমপ্লেট সফলভাবে মুছে ফেলা হয়েছে।',
+  'reset_confirmation' => 'ডিফল্ট টেমপ্লেটে রিসেট করবেন? এটি বর্তমান সম্পাদক বিষয়বস্তু ওভাররাইট করবে।',
+  'btn_reset_template' => 'ডিফল্টে রিসেট করুন',
+  'btn_back_to_list' => 'তালিকায় ফিরে যান',
+  'btn_save_and_back' => 'সংরক্ষণ করুন এবং তালিকায় ফিরে যান',
+  'available_placeholders' => 'উপলব্ধ স্থানধারক',
+  'template_editor' => 'টেমপ্লেট সম্পাদক',
+  'placeholder_tip' => 'সম্পাদকের কার্সার অবস্থানে এটি সন্নিবেশ করতে বাম প্যানেল থেকে একটি স্থানধারকটিতে ক্লিক করুন৷',
+  'subject_table_placeholder' => 'যেখানে আপনি বিষয়ভিত্তিক মার্ক টেবিলটি দেখতে চান সেখানে {subject_table} ব্যবহার করুন।',
+  'text_all_schools' => 'সব স্কুল',
+  'text_yes' => 'হ্যাঁ',
+  'text_no' => 'না',
+);

@@ -1,0 +1,11 @@
+<div class="row mb-3">
+    <div class="col-sm-7"><h3 class="text-secondary mb-0"><i class="bi bi-person-badge"></i> <?= esc(lang('AdmitCard.page_title')) ?></h3></div>
+    <div class="col-sm-5 text-end"><?php if (!empty($can_generate)): ?><a href="<?= base_url('examination/admit-cards/create') ?>" class="btn btn-success"><i class="fa fa-plus"></i> <?= esc(lang('AdmitCard.generate')) ?></a><?php endif ?></div>
+</div>
+<?= get_system_message() ?>
+<div class="card"><div class="card-body"><div class="table-responsive"><table class="table table-bordered align-middle">
+<thead><tr><th>#</th><th><?= esc(lang('AdmitCard.title')) ?></th><th><?= esc(lang('AdmitCard.school')) ?></th><th><?= esc(lang('AdmitCard.exam')) ?></th><th><?= esc(lang('AdmitCard.session')) ?></th><th class="text-center"><?= esc(lang('AdmitCard.cards')) ?></th><th class="text-end"><?= esc(lang('AdmitCard.actions')) ?></th></tr></thead>
+<tbody><?php if (empty($items)): ?><tr><td colspan="7" class="text-center text-muted py-4"><?= esc(lang('AdmitCard.no_batches')) ?></td></tr><?php else: foreach ($items as $index => $item): ?><tr>
+<td><?= $index + 1 ?></td><td><strong><?= esc($item->title) ?></strong></td><td><?= esc($item->school_name ?? '-') ?></td><td><?= esc($item->exam_name ?? '-') ?></td><td><?= esc($item->session_name ?? '-') ?></td><td class="text-center"><?= (int) $item->card_count ?></td>
+<td class="text-end text-nowrap"><a class="btn btn-sm btn-info me-1" href="<?= base_url('examination/admit-cards/view/' . rawurlencode($item->token)) ?>"><i class="fa fa-eye"></i> <?= esc(lang('AdmitCard.view')) ?></a><?php if (!empty($can_generate)): ?><a class="btn btn-sm btn-secondary me-1" href="<?= base_url('examination/admit-cards/settings/' . rawurlencode($item->token)) ?>"><i class="fa fa-gear"></i> <?= esc(lang('AdmitCard.settings')) ?></a><?php endif ?><?php if (!empty($can_print)): ?><a class="btn btn-sm btn-primary me-1" target="_blank" href="<?= base_url('examination/admit-cards/print/' . rawurlencode($item->token)) ?>"><i class="fa fa-print"></i></a><a class="btn btn-sm btn-danger" href="<?= base_url('examination/admit-cards/download-pdf/' . rawurlencode($item->token)) ?>"><i class="fa fa-file-pdf"></i></a><?php endif ?></td>
+</tr><?php endforeach; endif ?></tbody></table></div></div></div>

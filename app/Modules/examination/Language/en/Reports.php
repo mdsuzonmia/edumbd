@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'page_title_individual_result' => 'Individual Result',
+    'page_title_transcript' => 'Transcript',
+    'page_title_tabulation_sheet' => 'Tabulation Sheet',
+    'page_title_merit_list' => 'Merit List',
+    'page_title_subject_analysis' => 'Subject Analysis',
+    'page_title_class_statistics' => 'Class Statistics',
+    'page_title_gpa_analysis' => 'GPA Analysis',
+    'page_title_pass_fail_report' => 'Pass/Fail Report',
+    'heading_individual_result' => 'Individual Result',
+    'heading_transcript' => 'Transcript',
+    'heading_tabulation_sheet' => 'Tabulation Sheet',
+    'heading_merit_list' => 'Merit List',
+    'heading_subject_analysis' => 'Subject Analysis',
+    'heading_class_statistics' => 'Class Statistics',
+    'heading_gpa_analysis' => 'GPA Analysis',
+    'heading_pass_fail_report' => 'Pass/Fail Report',
+    'btn_view' => 'View',
+    'btn_print' => 'Print',
+    'btn_export' => 'Export',
+    'select_school' => 'Select School',
+    'select_exam' => 'Select Exam',
+    'select_class' => 'Select Class',
+    'select_section' => 'Select Section',
+    'select_student' => 'Select Student',
+];

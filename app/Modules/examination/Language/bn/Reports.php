@@ -1,0 +1,28 @@
+<?php
+
+return array (
+  'page_title_individual_result' => 'স্বতন্ত্র ফলাফল',
+  'page_title_transcript' => 'প্রতিলিপি',
+  'page_title_tabulation_sheet' => 'ট্যাবুলেশন শীট',
+  'page_title_merit_list' => 'মেধা তালিকা',
+  'page_title_subject_analysis' => 'বিষয় বিশ্লেষণ',
+  'page_title_class_statistics' => 'ক্লাস পরিসংখ্যান',
+  'page_title_gpa_analysis' => 'জিপিএ বিশ্লেষণ',
+  'page_title_pass_fail_report' => 'পাস/ফেল রিপোর্ট',
+  'heading_individual_result' => 'স্বতন্ত্র ফলাফল',
+  'heading_transcript' => 'প্রতিলিপি',
+  'heading_tabulation_sheet' => 'ট্যাবুলেশন শীট',
+  'heading_merit_list' => 'মেধা তালিকা',
+  'heading_subject_analysis' => 'বিষয় বিশ্লেষণ',
+  'heading_class_statistics' => 'ক্লাস পরিসংখ্যান',
+  'heading_gpa_analysis' => 'জিপিএ বিশ্লেষণ',
+  'heading_pass_fail_report' => 'পাস/ফেল রিপোর্ট',
+  'btn_view' => 'দেখুন',
+  'btn_print' => 'প্রিন্ট',
+  'btn_export' => 'রপ্তানি',
+  'select_school' => 'স্কুল নির্বাচন করুন',
+  'select_exam' => 'পরীক্ষা নির্বাচন করুন',
+  'select_class' => 'ক্লাস নির্বাচন করুন',
+  'select_section' => 'বিভাগ নির্বাচন করুন',
+  'select_student' => 'ছাত্র নির্বাচন করুন',
+);

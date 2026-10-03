@@ -1,0 +1,43 @@
+<?php
+
+return [
+    'page_title_list' => 'Payment List',
+    'page_title_view' => 'Payment Details',
+    'heading_list' => 'Payment list',
+    'heading_view' => 'Payment Details',
+    'heading_related_payments' => 'Related Payments',
+    'back_to_list' => 'Back to Payment List',
+
+    'school' => 'School',
+    'user' => 'User',
+    'plan' => 'Plan',
+    'gateway' => 'Gateway',
+    'payment_gateway' => 'Payment Gateway',
+    'billing_cycle' => 'Billing Cycle',
+    'amount' => 'Amount',
+    'currency' => 'Currency',
+    'transaction_id' => 'Transaction ID',
+    'gateway_payment_id' => 'Gateway Payment ID',
+    'status' => 'Status',
+    'payment_payload' => 'Payment Payload',
+    'paid_at' => 'Paid At',
+
+    'filter_gateway' => 'Gateway',
+    'filter_status' => 'Status',
+    'status_pending' => 'Pending',
+    'status_paid' => 'Paid',
+    'status_failed' => 'Failed',
+    'status_cancelled' => 'Cancelled',
+    'change_status' => 'Change Status',
+    'status_updated' => 'Payment status updated successfully.',
+    'invalid_status' => 'The selected payment status is not valid.',
+    'manual_only_status' => 'Only manual payments can be updated from this screen.',
+
+    'th_transaction_id' => 'Transaction ID',
+    'th_plan' => 'Plan',
+    'th_gateway' => 'Gateway',
+    'th_amount' => 'Amount',
+    'th_status' => 'Status',
+    'th_paid_at' => 'Paid At',
+    'th_id' => 'ID',
+];

@@ -1,0 +1,32 @@
+{
+    "name": "Bulk Student Upload",
+    "slug": "bulkstudent",
+    "description": "Bulk Student Upload by CSV File",
+    "version": "1.0",
+    "author": "CoderVex",
+    "status": "1",
+    "menu_access": "1,2",
+    "menu_icon": "fa fa-upload",
+    "sidebar_menu": "1",
+    "super_admin_dashboard": "0",
+    "admin_dashboard": "0",
+    "teacher_dashboard": "0",
+    "student_dashboard": "0",
+    "parent_dashboard": "0",
+    "params": 
+        {
+           "title": "Bulk Student Upload"
+        },
+    "fields": [
+        {
+            "name": "title",
+            "label": "Title",
+            "type": "text",
+            "required": true,
+            "default": "Bulk Student Upload",
+            "placeholder": "Title",
+            "note": ""
+        }
+    ]
+    
+}

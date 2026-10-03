@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'page_title_list' => 'Result Templates',
+    'page_title_builder' => 'Template Builder',
+    'heading_list' => 'Template List',
+    'heading_builder' => 'Template Builder',
+    'btn_new' => 'New Template',
+    'btn_save' => 'Save Template',
+    'btn_delete' => 'Delete Template',
+    'btn_builder' => 'Open Builder',
+    'back_to' => 'Back to Templates',
+    'sys_saved' => 'Template saved successfully.',
+    'sys_deleted' => 'Template deleted successfully.',
+    'template_name' => 'Template Name',
+    'template_content' => 'Template Content',
+    'confirm_delete' => 'Are you sure you want to delete this template?',
+    'template_type' => 'Template Type',
+    'select_template_type' => 'Select Template Type',
+    'template_style' => 'Template Style',
+    'template_style_help' => 'CSS styles for template. Use {subject_table} placeholder where you want the subject-wise marks table to appear.',
+    'template_background' => 'Template Background Image',
+    'class_teacher_signature' => 'Class Teacher Signature Image',
+    'principal_signature' => 'Principal Signature Image',
+    'orientation' => 'Orientation',
+    'select_orientation' => 'Select Orientation',
+];

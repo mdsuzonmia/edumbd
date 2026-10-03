@@ -1,0 +1,28 @@
+<?php
+
+return array (
+  'page_title_list' => 'চালান তালিকা',
+  'page_title_view' => 'চালানের বিবরণ',
+  'heading_list' => 'চালান তালিকা',
+  'heading_view' => 'চালানের বিবরণ',
+  'back_to_list' => 'চালান তালিকায় ফিরে যান',
+  'invoice_no' => 'চালান নং',
+  'school' => 'স্কুল',
+  'user' => 'ব্যবহারকারী',
+  'plan' => 'পরিকল্পনা',
+  'gateway' => 'গেটওয়ে',
+  'billing_cycle' => 'বিলিং চক্র',
+  'amount' => 'পরিমাণ',
+  'transaction_id' => 'লেনদেন আইডি',
+  'gateway_payment_id' => 'গেটওয়ে পেমেন্ট আইডি',
+  'paid_at' => 'পরিশোধিত এ',
+  'status' => 'স্ট্যাটাস',
+  'filter_gateway' => 'গেটওয়ে',
+  'th_invoice_no' => 'চালান নং',
+  'th_school' => 'স্কুল',
+  'th_plan' => 'পরিকল্পনা',
+  'th_amount' => 'পরিমাণ',
+  'th_gateway' => 'গেটওয়ে',
+  'th_paid_at' => 'পরিশোধিত এ',
+  'th_id' => 'আইডি',
+);

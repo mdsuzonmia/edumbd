@@ -1,0 +1,221 @@
+{
+    "name": "SMS And Whatapp",
+    "slug": "sms_whatapp",
+    "description": "SMS And Whatapp Student Result Notification",
+    "version": "1.0",
+    "author": "CoderVex",
+    "status": "1",
+    "menu_access": "1",
+    "menu_icon": "fa fa-whatsapp",
+    "sidebar_menu": "1",
+    "super_admin_dashboard": "0",
+    "admin_dashboard": "0",
+    "teacher_dashboard": "0",
+    "student_dashboard": "0",
+    "parent_dashboard": "0",
+    "params": 
+        {
+            "sms_student_template": "",
+            "sms_parent_template": "",
+            "default_sms_gateway": "",
+
+            "twilio_sid": "",
+            "twilio_auth_token": "",
+            "twilio_number": "",
+            
+            "twilio_whatsapp_number": "",
+            
+            "meta_access_token": "",
+            "meta_phone_number_id": "",
+
+            "nexmo_api_key": "",
+            "nexmo_api_secret": "",
+            "nexmo_sender_id": "",
+
+            "textlocal_api_key": "",
+            "textlocal_sender_id": ""
+        }
+    ,
+    "fields": [
+        {
+            "name": "sms_student_template",
+            "label": "SMS Student Template",
+            "type": "textarea",
+            "required": true,
+            "default": "",
+            "placeholder": "SMS Message Template",
+            "note": "Please use placeholder: [FIRST_NAME],[LAST_NAME],[FULL_NAME], [STUDENT_ID],[CLASS_ROLL],[EXAM],[SCORE],[TOTAL_MARK], [GRADE_POINT],[LETTER_GRADE], [SUBJECTS_WITH_VALUE], [SKILL_WITH_VALUE]"
+        },
+        {
+            "name": "sms_parent_template",
+            "label": "SMS Parent Template",
+            "type": "textarea",
+            "required": true,
+            "default": "",
+            "placeholder": "SMS Message Template",
+            "note": "Please use placeholder: [FIRST_NAME],[LAST_NAME],[FULL_NAME], [STUDENT_ID],[CLASS_ROLL],[EXAM],[SCORE],[TOTAL_MARK], [GRADE_POINT],[LETTER_GRADE], [SUBJECTS_WITH_VALUE], [SKILL_WITH_VALUE]"
+        },
+        {
+            "name": "sms_gateway",
+            "label": "SMS Gateway",
+            "type": "dropdown",
+            "required": true,
+            "default": "twilio",
+            "options": [
+                { "value": "twilio", "label": "Twilio" },
+                { "value": "nexmo", "label": "Nexmo" },
+                { "value": "textlocal", "label": "Textlocal" },
+                { "value": "twilio_whatsapp", "label": "Twilio WhatsApp" },
+                { "value": "meta_whatsapp", "label": "WhatsApp Cloud API (Meta)" },
+                { "value": "textlocal_whatsapp", "label": "Textlocal WhatsApp" }
+            ],
+            "placeholder": "Choose SMS Gateway",
+            "note": ""
+        },
+        {
+            "name": "twilio_heading",
+            "label": "Twilio Settings",
+            "type": "heading",
+            "required": false,
+            "default": "",
+            "placeholder": "",
+            "note": ""
+        },
+        {
+            "name": "twilio_sid",
+            "label": "Twilio SID",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "placeholder": "Enter Twilio SID",
+            "note": ""
+        },
+        {
+            "name": "twilio_auth_token",
+            "label": "Twilio Auth Token",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "placeholder": "Enter Twilio Auth Token",
+            "note": ""
+        },
+        {
+            "name": "twilio_number",
+            "label": "Twilio Number",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "placeholder": "Enter Twilio Number",
+            "note": ""
+        },
+        {
+            "name": "twilio_whatsapp__heading",
+            "label": "Twilio WhatsApp Settings",
+            "type": "heading",
+            "required": false,
+            "default": "",
+            "placeholder": "",
+            "note": ""
+        },
+        {
+            "name": "twilio_whatsapp_number",
+            "label": "Twilio WhatsApp Number",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "placeholder": "Enter Twilio WhatsApp Number",
+            "note": ""
+        },
+        {
+            "name": "meta_whatsapp__heading",
+            "label": "WhatsApp Cloud API (Meta)",
+            "type": "heading",
+            "required": false,
+            "default": "",
+            "placeholder": "",
+            "note": ""
+        },
+        {
+            "name": "meta_access_token",
+            "label": "Meta Access Token",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "placeholder": "Enter Meta Access Token",
+            "note": ""
+        },
+        {
+            "name": "meta_phone_number_id",
+            "label": "Meta Phone Number ID",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "placeholder": "Enter Meta Phone Number ID",
+            "note": ""
+        },
+        {
+            "name": "nexmo_heading",
+            "label": "Nexmo Settings",
+            "type": "heading",
+            "required": false,
+            "default": "",
+            "placeholder": "",
+            "note": ""
+        },
+        {
+            "name": "nexmo_api_key",
+            "label": "Nexmo API Key",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "placeholder": "Enter Nexmo API Key",
+            "note": ""
+        },
+        {
+            "name": "nexmo_api_secret",
+            "label": "Nexmo API Secret",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "placeholder": "Enter Nexmo API Secret",
+            "note": ""
+        },
+        {
+            "name": "nexmo_sender_id",
+            "label": "Nexmo Sender ID",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "placeholder": "Enter Nexmo Sender ID",
+            "note": ""
+        },
+        {
+            "name": "textlocal_heading",
+            "label": "Textlocal Settings",
+            "type": "heading",
+            "required": false,
+            "default": "",
+            "placeholder": "",
+            "note": ""
+        },
+        {
+            "name": "textlocal_api_key",
+            "label": "Textlocal API Key",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "placeholder": "Enter Textlocal API Key",
+            "note": ""
+        },
+        {
+            "name": "textlocal_sender_id",
+            "label": "Textlocal Sender ID",
+            "type": "text",
+            "required": false,
+            "default": "",
+            "placeholder": "Enter Textlocal Sender ID",
+            "note": ""
+        }
+
+    ]
+}

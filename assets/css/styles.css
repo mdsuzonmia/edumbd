@@ -1,0 +1,80 @@
+:root{ --sidebar-width: 300px; }
+body{ min-height:100vh; background:#f6f8fb; }
+
+.app-logo{ max-width: 100%; height: auto; }
+
+/* Sidebar */
+.sidebar{
+  width:var(--sidebar-width);
+  min-width:var(--sidebar-width);
+  background: #416499;
+  color: #fff;
+  height:100vh;
+  position:fixed;
+  left:0; top:0; padding:1.25rem;
+  overflow:auto;
+  transition:all .2s ease-in-out;
+}
+.login-sidebar-bg{ background: #416499; color:#fff; padding:1.75rem; border-top-left-radius:.5rem; border-bottom-left-radius:.5rem; }
+
+
+.sidebar .nav-link { color: #fff; cursor: pointer; }
+  .sidebar .nav-link:hover { color: #ddd; }
+
+  /* Submenu vertical stacking */
+  .sidebar .submenu {
+    list-style: none;
+    padding-left: 1rem;
+    margin: 10px 0 0 0;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+    display: flex;
+    flex-direction: column; /* <-- stack vertically */
+    justify-content: flex-start;
+  }
+
+
+
+  .sidebar .submenu .nav-link {
+    padding: 6px 8px;
+    font-size: 0.95rem;
+    display: block;
+  }
+
+  .sidebar .nav-link.active{ background: rgba(255,255,255,.08); border-radius:.5rem; }
+
+  .logout-btn{ background: #ffbd59; color:#fff; border:none; padding:0.5rem 1rem; border-radius:0.25rem; transition:background 0.2s ease-in-out; }
+  .logout-btn:hover{ background:#ffbd59; color:#fff; }
+
+  /* Chevron rotation */
+  .chevron {
+    transition: transform 0.3s ease;
+  }
+
+/* Content area */
+.content-wrap{ margin-left:var(--sidebar-width);  }
+
+/* Small screens: collapse sidebar */
+@media (max-width: 992px){
+  .sidebar{ transform:translateX(-110%); position:fixed; z-index:1030; }
+  .sidebar.show{ transform:translateX(0); }
+  .content-wrap{ margin-left:0; }
+}
+
+/* Auth pages */
+.login-wrapper, .auth-wrapper{ min-height:100vh; display:flex; align-items:center; justify-content:center; }
+.brand{ font-weight:700; letter-spacing:.4px; }
+
+/* Quick helper card spacing */
+.stat-card{ border-radius:.75rem; }
+
+/* Password strength */
+.pw-strength { height:8px; border-radius:6px; background:#e9ecef; overflow:hidden; }
+.pw-strength > div{ height:100%; width:0%; transition:width .2s ease-in-out; }
+
+/* Small footer */
+footer.small{ color:#6c757d; }
+
+/* Table small actions */
+.table .btn { padding: .25rem .5rem; font-size: .85rem; }

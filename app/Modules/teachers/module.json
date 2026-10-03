@@ -1,0 +1,30 @@
+{
+    "name": "Teachers Management",
+    "slug": "teachers",
+    "description": "Manage Teachers, Qualifications, Subjects, and Classes",
+    "version": "1.0",
+    "author": "CoderVex",
+    "status": "1",
+    "menu_access": "1,2",
+    "menu_icon": "fa fa-chalkboard-teacher",
+    "sidebar_menu": "1",
+    "super_admin_dashboard": "0",
+    "admin_dashboard": "0",
+    "teacher_dashboard": "0",
+    "student_dashboard": "0",
+    "parent_dashboard": "0",
+    "params": {
+        "title": "Teachers Management"
+    },
+    "fields": [
+        {
+            "name": "title",
+            "label": "Title",
+            "type": "text",
+            "required": true,
+            "default": "Teachers Management",
+            "placeholder": "Title",
+            "note": ""
+        }
+    ]
+}

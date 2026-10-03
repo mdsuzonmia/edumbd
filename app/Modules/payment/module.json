@@ -1,0 +1,49 @@
+{
+    "name": "Payment",
+    "slug": "payment",
+    "description": "A Payment module",
+    "version": "1.0",
+    "author": "CoderVex",
+    "status": "1",
+    "permissions": "",
+    "params": 
+        {
+            "output_file_name": "backup",
+            "title": "Backup",
+            "student_view": "Yes"
+        }
+    ,
+    "fields": [
+        {
+            "name": "output_file_name",
+            "label": "Output file name",
+            "type": "text",
+            "required": true,
+            "default": "",
+            "placeholder": "",
+            "note": ""
+        },
+        {
+            "name": "title",
+            "label": "Title",
+            "type": "text",
+            "required": true,
+            "default": "",
+            "placeholder": "",
+            "note": ""
+        },
+        {
+            "name": "student_view",
+            "label": "Student View",
+            "type": "dropdown",
+            "required": true,
+            "default": "",
+            "placeholder": "",
+            "options": [
+                { "value": "Yes", "label": "Yes" },
+                { "value": "No", "label": "No" }
+            ],
+            "note": ""
+        }
+    ]
+}
