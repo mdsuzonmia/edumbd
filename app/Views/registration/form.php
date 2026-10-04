@@ -25,7 +25,7 @@ body { background:#f3f7fb; font-family:"Noto Sans Bengali","Hind Siliguri",sans-
       </div>
       <div class="mb-4">
         <label class="form-label fw-semibold">স্কুলের নাম</label>
-        <input type="text" autocomplete="organization" name="school_name" value="<?= esc(old('school_name')) ?>" class="form-control" placeholder="আপনার স্কুলের নাম" required>
+        <input type="text" autocomplete="organization" name="school_name" value="<?= esc(old('school_name') ?: (((array) session('result_wizard_guest'))['school_name'] ?? '')) ?>" class="form-control" placeholder="আপনার স্কুলের নাম" required>
       </div>
       <button type="submit" class="btn btn-primary w-100">অ্যাকাউন্ট তৈরি করে শুরু করুন</button>
     <?= form_close(); ?>

@@ -345,7 +345,10 @@ class Auth extends BaseController
         }
 
         // 2️⃣ Redirect by role
-        return redirect()->to($this->redirectByRole($result['role']->slug));
+        $target = $result['role']->slug === 'school-owner' && session()->has('result_wizard_guest')
+            ? '/examination/result-wizard'
+            : $this->redirectByRole($result['role']->slug);
+        return redirect()->to($target);
     }
 
 

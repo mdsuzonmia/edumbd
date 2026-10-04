@@ -6,15 +6,21 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->group('examination', ['namespace' => 'App\Modules\examination\Controllers'], function ($routes) {
 
+    // The wizard tour is public. All endpoints that create or change school data
+    // remain protected for authenticated school owners.
+    $routes->get('result-wizard', 'ResultWizardController::index');
+    $routes->get('result-wizard/', 'ResultWizardController::index');
+    $routes->get('result-wizard/step/(:num)', 'ResultWizardController::index/$1');
+    $routes->post('result-wizard/guest-save/(:num)', 'ResultWizardController::saveGuestDraft/$1');
+
     $routes->group('result-wizard', ['filter' => 'role:school-owner'], function ($routes) {
-        $routes->get('/', 'ResultWizardController::index');
-        $routes->get('step/(:num)', 'ResultWizardController::index/$1');
         $routes->post('save/(:num)', 'ResultWizardController::save/$1');
         $routes->get('student-template', 'ResultWizardController::studentTemplate');
         $routes->post('student-preview', 'ResultWizardController::studentPreview');
         $routes->post('student-import', 'ResultWizardController::studentImport');
         $routes->get('marks-template', 'ResultWizardController::marksTemplate');
         $routes->post('marks-import', 'ResultWizardController::marksImport');
+        $routes->get('student-results', 'ResultWizardController::studentResults');
     });
 
     /*

@@ -164,7 +164,8 @@ class Registration extends BaseController
             'logged_in' => true,
         ]);
 
-        return redirect()->to('/school-owner/dashboard')->with('success', 'স্বাগতম! আপনার স্কুলের অ্যাকাউন্ট তৈরি হয়েছে।');
+        $target = session()->has('result_wizard_guest') ? '/examination/result-wizard' : '/school-owner/dashboard';
+        return redirect()->to($target)->with('success', 'স্বাগতম! আপনার স্কুলের অ্যাকাউন্ট তৈরি হয়েছে।');
 
         // Paid-registration callbacks below are retained for existing records.
         /* @codeCoverageIgnoreStart */

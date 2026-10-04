@@ -8,7 +8,7 @@ use App\Models\ModuleModel;
  */
 
 
-$routes->get('/', 'Auth::login');
+$routes->get('/', '\App\Modules\examination\Controllers\ResultWizardController::index');
 $routes->get('login', 'Auth::login');
 $routes->post('login', 'Auth::doLogin');
 $routes->get('logout', 'Auth::logout');

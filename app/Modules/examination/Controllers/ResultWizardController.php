@@ -25,9 +25,31 @@ class ResultWizardController extends BaseController
 
     public function index(int $step = 0)
     {
+        $requestedStep = $step;
+        $step = max(1, min(6, $step ?: 1));
+
+        if (!session()->get('logged_in')) {
+            $embedded = $this->request->getGet('embed') === '1';
+            $guestView = view('App\Modules\examination\Views\result_wizard_guest', [
+                'step' => $step,
+                'draft' => (array) session()->get('result_wizard_guest'),
+                'embedded' => $embedded,
+            ]);
+            if ($embedded) return $guestView;
+            return view('frontend/header', ['page_title' => 'Create Result Sheet - Edum'])
+                . $guestView
+                . view('frontend/footer');
+        }
+
+        if (session()->get('role') !== 'school-owner') {
+            return redirect()->to('/unauthorized')
+                ->with('error', 'Only school owners can create result sheets.');
+        }
+
         [$schoolId, $userId] = $this->identity();
+        $this->importGuestDraft($schoolId, $userId);
         $progress = $this->progress($schoolId, $userId);
-        $step = $step ?: (int) $progress->current_step;
+        $step = $requestedStep ?: (int) $progress->current_step;
         $step = max(1, min(6, $step));
         $yearId = $this->ensureDefaults($schoolId, $userId, $progress);
         $subjectIds = json_decode((string) $progress->subject_ids, true) ?: [];
@@ -80,6 +102,55 @@ class ResultWizardController extends BaseController
         return view('header', ['page_title' => lang('ResultWizard.page_title'), 'body_class' => 'nav-md', 'admin_area' => 'yes'])
             . view('App\Modules\examination\Views\result_wizard', $data)
             . view('footer', ['admin_area' => 'yes']);
+    }
+
+    public function saveGuestDraft(int $step)
+    {
+        if (session()->get('logged_in')) return redirect()->to('examination/result-wizard');
+        $step = max(1, min(5, $step));
+        $draft = (array) session()->get('result_wizard_guest');
+        if ($step === 1) {
+            foreach (['school_name','academic_year','class_name','section_name','category_name'] as $field) $draft[$field] = trim((string)$this->request->getPost($field));
+            if ($draft['school_name'] === '' || $draft['academic_year'] === '' || $draft['class_name'] === '') return redirect()->back()->withInput()->with('error', 'School name, academic year/session, and class name are required.');
+        } elseif ($step === 2) {
+            $draft['exam_name'] = trim((string)$this->request->getPost('exam_name'));
+            if ($draft['exam_name'] === '') return redirect()->back()->withInput()->with('error', 'Exam name is required.');
+        } elseif ($step === 3) {
+            $draft['subjects_text'] = trim((string)$this->request->getPost('subjects_text'));
+            $draft['subjects'] = array_values(array_unique(array_filter(array_map('trim', preg_split('/\r\n|\r|\n|,/', $draft['subjects_text']) ?: []))));
+            if (!$draft['subjects']) return redirect()->back()->withInput()->with('error', 'Add at least one subject.');
+        } elseif ($step === 4) {
+            $draft['students_text'] = trim((string)$this->request->getPost('students_text')); $students = [];
+            foreach (preg_split('/\r\n|\r|\n/', $draft['students_text']) ?: [] as $line) { $p=array_map('trim',str_getcsv($line)); if(($p[0]??'')!==''&&($p[1]??'')!=='') $students[]=['name'=>$p[0],'roll'=>$p[1],'section'=>$p[2]??($draft['section_name']??'General'),'category'=>$p[3]??($draft['category_name']??'General')]; }
+            if (!$students) return redirect()->back()->withInput()->with('error', 'Add at least one student with a name and roll number.');
+            $draft['students']=$students;
+        } else {
+            $marks=(array)$this->request->getPost('marks');
+            foreach(($draft['students']??[]) as $si=>$_) foreach(($draft['subjects']??[]) as $sj=>$_s){$v=$marks[$si][$sj]??'';if($v===''||!is_numeric($v)||(float)$v<0||(float)$v>100)return redirect()->back()->withInput()->with('error','Every mark must be between 0 and 100.');}
+            $draft['marks']=$marks;
+        }
+        session()->set('result_wizard_guest',$draft);
+        $next = 'examination/result-wizard/step/'.($step+1);
+        if ($this->request->getPost('embed') === '1') $next .= '?embed=1';
+        return redirect()->to($next);
+    }
+
+    private function importGuestDraft(int $schoolId, int $userId): void
+    {
+        $draft=(array)session()->get('result_wizard_guest');
+        if(empty($draft['marks'])||empty($draft['students'])||empty($draft['subjects']))return;
+        $p=$this->progress($schoolId,$userId);$this->ensureDefaults($schoolId,$userId,$p);
+        $yearTitle=trim((string)($draft['academic_year']??date('Y')));
+        $year=$this->YearModel->where(['school_id'=>$schoolId,'title'=>$yearTitle])->first();
+        if(!$year){$yearId=(int)$this->YearModel->insert(['token'=>bin2hex(random_bytes(16)),'title'=>$yearTitle,'school_id'=>$schoolId,'status'=>1,'created_by'=>$userId,'school_owner_uid'=>$userId]);}else{$yearId=(int)$year->id;}
+        $this->progressModel->update($p->id,['year_id'=>$yearId]);$p->year_id=$yearId;
+        $classId=(int)$this->ClassModel->insert(['token'=>bin2hex(random_bytes(16)),'title'=>$draft['class_name'],'school_id'=>$schoolId,'status'=>1,'school_owner_uid'=>$userId,'created_by'=>$userId]);
+        $examId=(int)$this->ExamModel->insert(['token'=>bin2hex(random_bytes(16)),'title'=>$draft['exam_name'],'year_id'=>$yearId,'school_id'=>$schoolId,'status'=>1,'school_owner_uid'=>$userId,'created_by'=>$userId,'is_aggregate_result'=>1]);
+        $subjectIds=[];foreach($draft['subjects'] as $title)$subjectIds[]=$this->createBasicSubject($title,$schoolId,$userId);
+        $this->progressModel->update($p->id,['class_id'=>$classId,'exam_id'=>$examId,'subject_ids'=>json_encode($subjectIds),'current_step'=>6]);$p=$this->progressModel->find($p->id);
+        foreach($draft['students'] as $student)$this->createStudent($student['name'],$student['roll'],$student['section'],$student['category'],$schoolId,$userId,$p);
+        $matrix=[];foreach($draft['students'] as $si=>$student){$en=$this->EnrollmentModel->where(['school_id'=>$schoolId,'class_id'=>$classId,'session_id'=>$yearId,'roll_no'=>$student['roll']])->first();if(!$en)continue;foreach($subjectIds as $sj=>$subjectId)$matrix[$en->student_id][$subjectId]=$draft['marks'][$si][$sj];}
+        $this->saveMarks($matrix,$schoolId,$userId,$p);session()->remove('result_wizard_guest');session()->setFlashdata('success','Your guest result data has been saved to your school account.');
     }
 
     public function save(int $step)
@@ -206,6 +277,36 @@ class ResultWizardController extends BaseController
         $this->saveMarks($matrix, $schoolId, $userId, $p);
         $this->progressModel->update($p->id, ['current_step' => 6]);
         return redirect()->to('examination/result-wizard/step/6')->with('success', lang('ResultWizard.marks_saved'));
+    }
+
+    public function studentResults()
+    {
+        [$schoolId, $userId] = $this->identity();
+        $p = $this->progress($schoolId, $userId);
+        if (!$p->class_id || !$p->exam_id || !$p->year_id) {
+            return redirect()->to('examination/result-wizard')->with('error', 'Complete the result wizard first.');
+        }
+
+        $students = $this->EnrollmentModel
+            ->select('student_enrollments.roll_no, students.id AS student_id, students.first_name, students.middle_name, students.last_name, students.student_code, examination_results.token AS result_token, examination_results.result_status')
+            ->join('students', 'students.id = student_enrollments.student_id')
+            ->join('examination_results', 'examination_results.student_id = students.id AND examination_results.school_id = ' . $schoolId . ' AND examination_results.exam_id = ' . (int)$p->exam_id . ' AND examination_results.class_id = ' . (int)$p->class_id . ' AND examination_results.session_id = ' . (int)$p->year_id, 'left')
+            ->where('student_enrollments.school_id', $schoolId)
+            ->where('student_enrollments.class_id', $p->class_id)
+            ->where('student_enrollments.session_id', $p->year_id)
+            ->where('students.status', 1)
+            ->orderBy('student_enrollments.roll_no', 'ASC')
+            ->findAll();
+
+        $data = [
+            'students' => $students,
+            'class' => $this->ClassModel->find($p->class_id),
+            'exam' => $this->ExamModel->find($p->exam_id),
+            'year' => $this->YearModel->find($p->year_id),
+        ];
+        return view('header', ['page_title'=>'Student Results','body_class'=>'nav-md','admin_area'=>'yes'])
+            . view('App\Modules\examination\Views\result_wizard_students', $data)
+            . view('footer', ['admin_area'=>'yes']);
     }
 
     private function identity(): array { return [(int) session('school_id'), (int) session('user_id')]; }
