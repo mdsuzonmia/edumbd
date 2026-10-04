@@ -30,15 +30,18 @@ class ResultWizardController extends BaseController
 
         if (!session()->get('logged_in')) {
             $embedded = $this->request->getGet('embed') === '1';
+            $requestedLocale = (string) $this->request->getGet('lang');
+            if ($embedded && in_array($requestedLocale, config('App')->supportedLocales, true)) {
+                session()->set(['app_locale' => $requestedLocale, 'locale_version' => 2]);
+                $this->request->setLocale($requestedLocale);
+                service('language')->setLocale($requestedLocale);
+            }
             $guestView = view('App\Modules\examination\Views\result_wizard_guest', [
                 'step' => $step,
                 'draft' => (array) session()->get('result_wizard_guest'),
                 'embedded' => $embedded,
             ]);
-            if ($embedded) return $guestView;
-            return view('frontend/header', ['page_title' => 'Create Result Sheet - Edum'])
-                . $guestView
-                . view('frontend/footer');
+            return $guestView;
         }
 
         if (session()->get('role') !== 'school-owner') {
@@ -107,32 +110,51 @@ class ResultWizardController extends BaseController
     public function saveGuestDraft(int $step)
     {
         if (session()->get('logged_in')) return redirect()->to('examination/result-wizard');
+        $requestedLocale = (string) $this->request->getPost('lang');
+        if (in_array($requestedLocale, config('App')->supportedLocales, true)) {
+            session()->set(['app_locale' => $requestedLocale, 'locale_version' => 2]);
+            $this->request->setLocale($requestedLocale);
+            service('language')->setLocale($requestedLocale);
+        }
         $step = max(1, min(5, $step));
         $draft = (array) session()->get('result_wizard_guest');
         if ($step === 1) {
             foreach (['school_name','academic_year','class_name','section_name','category_name'] as $field) $draft[$field] = trim((string)$this->request->getPost($field));
-            if ($draft['school_name'] === '' || $draft['academic_year'] === '' || $draft['class_name'] === '') return redirect()->back()->withInput()->with('error', 'School name, academic year/session, and class name are required.');
+            if ($draft['school_name'] === '' || $draft['academic_year'] === '' || $draft['class_name'] === '') return redirect()->back()->withInput()->with('error', $this->guestMessage('school_required'));
         } elseif ($step === 2) {
             $draft['exam_name'] = trim((string)$this->request->getPost('exam_name'));
-            if ($draft['exam_name'] === '') return redirect()->back()->withInput()->with('error', 'Exam name is required.');
+            if ($draft['exam_name'] === '') return redirect()->back()->withInput()->with('error', $this->guestMessage('exam_required'));
         } elseif ($step === 3) {
             $draft['subjects_text'] = trim((string)$this->request->getPost('subjects_text'));
             $draft['subjects'] = array_values(array_unique(array_filter(array_map('trim', preg_split('/\r\n|\r|\n|,/', $draft['subjects_text']) ?: []))));
-            if (!$draft['subjects']) return redirect()->back()->withInput()->with('error', 'Add at least one subject.');
+            if (!$draft['subjects']) return redirect()->back()->withInput()->with('error', $this->guestMessage('subject_required'));
         } elseif ($step === 4) {
             $draft['students_text'] = trim((string)$this->request->getPost('students_text')); $students = [];
             foreach (preg_split('/\r\n|\r|\n/', $draft['students_text']) ?: [] as $line) { $p=array_map('trim',str_getcsv($line)); if(($p[0]??'')!==''&&($p[1]??'')!=='') $students[]=['name'=>$p[0],'roll'=>$p[1],'section'=>$p[2]??($draft['section_name']??'General'),'category'=>$p[3]??($draft['category_name']??'General')]; }
-            if (!$students) return redirect()->back()->withInput()->with('error', 'Add at least one student with a name and roll number.');
+            if (!$students) return redirect()->back()->withInput()->with('error', $this->guestMessage('student_required'));
             $draft['students']=$students;
         } else {
             $marks=(array)$this->request->getPost('marks');
-            foreach(($draft['students']??[]) as $si=>$_) foreach(($draft['subjects']??[]) as $sj=>$_s){$v=$marks[$si][$sj]??'';if($v===''||!is_numeric($v)||(float)$v<0||(float)$v>100)return redirect()->back()->withInput()->with('error','Every mark must be between 0 and 100.');}
+            foreach(($draft['students']??[]) as $si=>$_) foreach(($draft['subjects']??[]) as $sj=>$_s){$v=$marks[$si][$sj]??'';if($v===''||!is_numeric($v)||(float)$v<0||(float)$v>100)return redirect()->back()->withInput()->with('error',$this->guestMessage('marks_invalid'));}
             $draft['marks']=$marks;
         }
         session()->set('result_wizard_guest',$draft);
         $next = 'examination/result-wizard/step/'.($step+1);
-        if ($this->request->getPost('embed') === '1') $next .= '?embed=1';
+        if ($this->request->getPost('embed') === '1') {
+            $next .= '?embed=1';
+            if (in_array($requestedLocale, config('App')->supportedLocales, true)) $next .= '&lang=' . $requestedLocale;
+        }
         return redirect()->to($next);
+    }
+
+    private function guestMessage(string $key): string
+    {
+        $messages = [
+            'en' => ['school_required'=>'School name, academic year/session, and class name are required.','exam_required'=>'Exam name is required.','subject_required'=>'Add at least one subject.','student_required'=>'Add at least one student with a name and roll number.','marks_invalid'=>'Every mark must be between 0 and 100.'],
+            'bn' => ['school_required'=>'স্কুলের নাম, শিক্ষাবর্ষ/সেশন এবং শ্রেণির নাম আবশ্যক।','exam_required'=>'পরীক্ষার নাম আবশ্যক।','subject_required'=>'কমপক্ষে একটি বিষয় যোগ করুন।','student_required'=>'নাম ও রোলসহ কমপক্ষে একজন শিক্ষার্থী যোগ করুন।','marks_invalid'=>'প্রতিটি নম্বর ০ থেকে ১০০-এর মধ্যে হতে হবে।'],
+        ];
+        $locale = service('language')->getLocale();
+        return $messages[$locale][$key] ?? $messages['en'][$key];
     }
 
     private function importGuestDraft(int $schoolId, int $userId): void
